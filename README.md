@@ -1,5 +1,5 @@
-# RestfulAPITemplate
+# Restful API Template
 Node.js Restful API Template
 
-### Documentation
+## Documentation
 TODO
