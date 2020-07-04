@@ -11,10 +11,11 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true);
 
 // Import Routes
-const postsRoute = require('./routes/posts');
-app.use('/examples', postsRoute);
+const exampleRoute = require('./routes/posts');
+app.use('/posts', exampleRoute);
 
 // Routes
 app.get('/', (req, res) => {
