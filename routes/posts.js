@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-// Gets a Post
+// Gets a Post - GET Request
 router.get('/', async (req, res) => {
     try{
         const posts = await Post.find();
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Submits a post
+// Submits a post - POST Request
 router.post('/', async (req, res) => {
     const post = new Post({
         title: req.body.title,
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     
 
 });
-// Specific Post
+// Specific Post - GET Request
 router.get('/:postId', async (req, res) => {
     try{
         const post = await Post.findById(req.params.postId);
@@ -38,22 +38,22 @@ router.get('/:postId', async (req, res) => {
     }
 });
 
-// Delete a Specific Post
+// Delete a Specific Post - DELETE Request
 router.delete('/:postId', async (req, res) => {
     try{
-        const removedPost = await Post.deleteOne({_id: req.params.postId})
+        const removedPost = await Post.deleteOne({ _id: req.params.postId });
         res.json(removedPost);
     }catch(err) {
         res.json({ message: err });
     }
 });
 
-// Delete a Specific Post
+// Update a Specific Post - PATCH Request
 router.patch('/:postId', async (req, res) => {
     try{
         const updatedPost = await Post.updateOne(
-            {_id: req.params.postId},
-            { $set: {title: req.body.title}}
+            { _id: req.params.postId },
+            { $set: {title: req.body.title }}
             );
         res.json(updatedPost);
     }catch(err) {
