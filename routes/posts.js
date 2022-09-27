@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-// Gets a Post - GET Request
+// Gets all posts - GET Request
 router.get('/', async (req, res) => {
     try{
         const posts = await Post.find();
         res.json(posts);
-    }catch(err){
+    } catch(err) {
         res.json({ message: err });
     }
 });
@@ -22,41 +22,41 @@ router.post('/', async (req, res) => {
     try{
         const savedPost = await post.save()
         res.json(savedPost);
-    }catch(err){
+    } catch(err) {
         res.json({ message: err });
     }
     
 
 });
-// Specific Post - GET Request
+// Gets a specific post - GET Request
 router.get('/:postId', async (req, res) => {
     try{
         const post = await Post.findById(req.params.postId);
         res.json(post);
-    }catch(err) {
+    } catch(err) {
         res.json({ message: err });
     }
 });
 
-// Delete a Specific Post - DELETE Request
+// Deletes a specific post - DELETE Request
 router.delete('/:postId', async (req, res) => {
-    try{
+    try {
         const removedPost = await Post.deleteOne({ _id: req.params.postId });
         res.json(removedPost);
-    }catch(err) {
+    } catch(err) {
         res.json({ message: err });
     }
 });
 
-// Update a Specific Post - PATCH Request
+// Updates a Specific Post - PATCH Request
 router.patch('/:postId', async (req, res) => {
     try{
         const updatedPost = await Post.updateOne(
             { _id: req.params.postId },
-            { $set: {title: req.body.title }}
-            );
+            { $set: { title: req.body.title, description: req.body.description } }
+        );
         res.json(updatedPost);
-    }catch(err) {
+    } catch(err) {
         res.json({ message: err });
     }
 });
